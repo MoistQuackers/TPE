@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body>
+  <div class="nav-bar">
+    <div class="nav-left">
+      <div class="logo">Sales Portal</div>
+    </div>
+
+    <div class="nav-links">
+      <a href="/dashboard.html" class="nav-link active">Dashboard</a>
+      <a
+        href="https://form.jotform.com/260364826179061/?advisor=Tax%20Plan%20Experts"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link"
+      >
+        Intake Form
+      </a>
+    </div>
+  </div>
+
+  <main class="dashboard-shell">
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">Overview</p>
+        <h1 class="page-title">Sales Dashboard</h1>
+        <p class="page-subtitle">Track production by sales rep and filter by Docs Sent date.</p>
+      </div>
+
+      <button id="logoutBtn" class="ghost-btn">Logout</button>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <p class="stat-label">Total Submitted</p>
+        <p class="stat-value" id="totalSubmitted">0</p>
+      </article>
+
+      <article class="stat-card">
+        <p class="stat-label">Completed</p>
+        <p class="stat-value" id="completedCount">0</p>
+      </article>
+
+      <article class="stat-card">
+        <p class="stat-label">MiniBox Completed</p>
+        <p class="stat-value" id="miniCompleted">0</p>
+      </article>
+
+      <article class="stat-card">
+        <p class="stat-label">Bungalow Completed</p>
+        <p class="stat-value" id="bungalowCompleted">0</p>
+      </article>
+
+      <article class="stat-card">
+        <p class="stat-label">Duplex Completed</p>
+        <p class="stat-value" id="duplexCompleted">0</p>
+      </article>
+    </section>
+
+    <section class="filters-card">
+      <div class="filter-group">
+        <label for="repFilter">Sales Rep</label>
+        <select id="repFilter">
+          <option value="">All Reps</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="startDate">Start Date</label>
+        <input type="date" id="startDate" />
+      </div>
+
+      <div class="filter-group">
+        <label for="endDate">End Date</label>
+        <input type="date" id="endDate" />
+      </div>
+    </section>
+
+    <section class="table-card">
+      <div class="table-card-header">
+        <h2>Sales Records</h2>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Phone #</th>
+              <th>Sales Rep</th>
+              <th>Model</th>
+              <th>Docs Sent</th>
+              <th>Docs Signed</th>
+              <th>Payment Received</th>
+            </tr>
+          </thead>
+          <tbody id="salesTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/js/dashboard.js"></script>
+</body>
+</html>
