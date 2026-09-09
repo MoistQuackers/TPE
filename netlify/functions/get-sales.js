@@ -28,6 +28,17 @@ function fmtDate(d) {
 }
 
 const CURRENT_TAX_YEAR = 2026;
+
+// Dashboard display order — matches the mapped status labels
+const STATUS_SORT_ORDER = {
+  'Completed':         1,
+  'Partially Paid':    2,
+  'Waiting Payment':   3,
+  'Docs Expired':      4,
+  'Waiting Signature': 5,
+  'Submitted':         6,
+  'Canceled':          7,
+};
 const TPE_AFFILIATE_CODE = 'HS-002';
 
 exports.handler = async () => {
@@ -88,8 +99,7 @@ exports.handler = async () => {
       `)
       .in('attributed_affiliate_id', visibleIds)
       .eq('tax_year', CURRENT_TAX_YEAR)
-      .neq('status', 'Cancelled')
-      .order('created_at', { ascending: true });
+      .neq('status', 'Cancelled');
 
     if (dealsError) {
       console.error('get-sales query error:', dealsError);
@@ -121,6 +131,12 @@ exports.handler = async () => {
         docsSigned: fmtDate(d.docs_signed_date),
         paymentReceived: fmtDate(d.payment_received_date),
       };
+    });
+
+    sales.sort((a, b) => {
+      const aP = STATUS_SORT_ORDER[a.status] || 99;
+      const bP = STATUS_SORT_ORDER[b.status] || 99;
+      return aP - bP;
     });
 
     return {
