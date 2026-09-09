@@ -89,7 +89,7 @@ exports.handler = async () => {
       .in('attributed_affiliate_id', visibleIds)
       .eq('tax_year', CURRENT_TAX_YEAR)
       .neq('status', 'Cancelled')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: true });
 
     if (dealsError) {
       console.error('get-sales query error:', dealsError);
@@ -101,11 +101,13 @@ exports.handler = async () => {
 
     // 4. Map to the exact shape dashboard.js expects
     const sales = (deals || []).map((d) => {
-      const repName =
+      let repName =
         d.attributed_affiliate?.display_name ||
         d.attributed_affiliate?.legal_name ||
         d.attributed_affiliate?.jotform_advisor_param ||
         '';
+      // Strip TPE/JG/TIG umbrella prefixes for uniform display in the rep-facing portal
+      repName = repName.replace(/^(TPE|JG|TIG)\s+/i, '').trim();
 
       return {
         status: mapStatus(d.status),
